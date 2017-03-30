@@ -4,6 +4,8 @@
 #include "NeuronDataReader.h"
 #include <iostream>
 
+#pragma comment(lib, "NeuronDataReader.lib")
+
 class NeuronConnection {
 
 public:
