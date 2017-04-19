@@ -1,8 +1,14 @@
 #pragma once
 // NeuronSDK includes
+
+// Voir si mettre un buffer
 #include "DataType.h"
 #include "NeuronDataReader.h"
 #include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <map>
+#include <string>
 
 #pragma comment(lib, "NeuronDataReader.lib")
 
@@ -29,6 +35,14 @@ public:
 	// Display information about the received Calc data
 	void ShowBvhCalcInfo(SOCKET_REF, CalcDataHeader*, float*);
 
+	void InitializeBvhHeader();
+
+	void FinalizeBvh();
+	void InitializeBvh(BvhDataHeader*, float*);
+	void BvhExport(BvhDataHeader*, float*);
+	void BvhFrameInformations();
+	void BvhMotionCopy();
+
 private:
 	// Socket used to connect to the Neuron
 	SOCKET_REF sockTCPRef;
@@ -38,6 +52,13 @@ private:
 		BVHBoneCount = 59,
 		CalcBoneCount = 21,
 	};
+
+	std::ofstream m_outfile;
+	bool m_firstWrite;
+	double m_initialFrame, m_currentFrame;
+	int m_perJoint;
+	int m_dataCount;
+	std::map<int, std::string> m_bones;
 };
 
 /*
@@ -167,7 +188,7 @@ LeftHandPinky3		58
 */
 
 /*
-BONE SEQUENCE TABLE
+BONE SEQUENCE TABLE (CALC) :
 
 0. Hips
 1. RightUpLeg

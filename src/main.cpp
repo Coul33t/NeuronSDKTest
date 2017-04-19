@@ -34,7 +34,6 @@ int main() {
 		// Asynchronously checking for Esc press
 		// (NOT related to the Neuron SDK)
 		while(!ret.get());
-
 		NCon.KillConnection();
 	}
 		
